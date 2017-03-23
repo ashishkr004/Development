@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<h3>Trip Data</h3>
+		<div>
+			<button onclick="displayData()">Display Data</button>
+		</div>
+		<div class="table-responsive" id="table-responsive" style="display: none;">
+		  	<table class="table" id="tableContent">
+		    	<thead>
+		    		<tr>
+			    		<th>Destination</th>
+			    		<th>Miles</th>
+			    		<th>Gallons</th>
+			    		<th>MPG</th>
+			    	</tr>
+		    	</thead>
+		  	</table>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var object={
+			destinations:[],
+			miles:[],
+			gallons:[],
+			// mpgs:[]
+		}
+		function insert(destination,mile,gallon){
+			object.destinations.push(destination);
+			object.miles.push(mile);
+			object.gallons.push(gallon);
+			// object.mpgs.push(Math.ceil(mile/gallon).toFixed(1));
+		}
+		insert("Chicago",329,10.6);
+		insert("St. Louis",284,10.5);
+		insert("Indianapolis",122,3.7);
+		insert("Nashville",191,6.4);
+		insert("Cincinnati",132,3.9,);
+
+		function displayData(){
+			var x = document.getElementById('table-responsive');
+		    if (x.style.display == 'none') {
+		        var tbody = document.createElement('tbody');
+
+				for (var i=0; i<object.destinations.length; i++){
+					var tr = document.createElement('tr');
+				    var td1 = document.createElement('td');
+				    var td2 = document.createElement('td');
+				    var td3 = document.createElement('td');
+				    var td4 = document.createElement('td');
+
+				    var text1 = document.createTextNode(object.destinations[i]);
+				    var text2 = document.createTextNode(object.miles[i]);
+				    var text3 = document.createTextNode(object.gallons[i]);
+				    var text4 = document.createTextNode(Math.round((object.miles[i]/object.gallons[i])*10)/10);
+
+				    td1.appendChild(text1);
+				    td2.appendChild(text2);
+				    td3.appendChild(text3);
+				    td4.appendChild(text4);
+
+				    tr.appendChild(td1);
+				    tr.appendChild(td2);
+				    tr.appendChild(td3);
+				    tr.appendChild(td4);
+				    tbody.appendChild(tr);
+				}
+				document.getElementById('tableContent').appendChild(tbody);
+				x.style.display = 'block';
+		    }
+		}
+	</script>
+</html>
